@@ -14,7 +14,6 @@ A modern, interactive web-based tool for calculating **Cyclic Redundancy Checks 
 - [Key Features](#-key-features)
 - [How CRC Works (Theory & Math)](#-how-crc-works-theory--math)
 - [Interactive Long-Division Visualizer](#-interactive-long-division-visualizer)
-- [Java Implementation](#-java-implementation)
 - [Getting Started](#-getting-started)
 - [Project Structure](#-project-structure)
 - [Author](#-author)
@@ -81,3 +80,34 @@ The built-in division engine renders the exact layout taught in computer network
             ----------| | | | | | |
                    ...
                       0 0 0 0 0         <-- Final Remainder (CRC)
+```
+---
+## 🚀 Getting Started
+
+Follow these simple steps to run the project locally on your machine.
+
+### Prerequisites
+
+* Any modern web browser (e.g., Google Chrome, Mozilla Firefox, Microsoft Edge, Safari)
+* Git (optional, for cloning)
+
+### Installation & Setup
+
+1. **Clone the repository** (or download the ZIP file):
+   ```bash
+   git clone [https://github.com/your-username/crc-visualizer.git](https://github.com/your-username/crc-visualizer.git)
+
+---
+## 📂 Project Structure
+
+├── index.html        # Main web application, interactive UI, and division engine
+└── README.md         # Documentation and project overview
+
+---
+
+## 👤 Author
+
+Made by Anant Patil.
+
+---
+
