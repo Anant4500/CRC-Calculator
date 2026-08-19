@@ -102,7 +102,7 @@
                         Data Bit Stream <span class="text-xs text-slate-400">(Binary sequence)</span>
                     </label>
                     <div class="relative">
-                        <input type="text" id="dataBits" value="1101001110" placeholder="e.g. 1101001110"
+                        <input type="text" id="dataBits" value="" placeholder="Enter Data Bit Stream"
                             class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 font-mono text-sm text-blue-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all uppercase tracking-wider">
                     </div>
                     <div class="flex flex-wrap gap-1.5 pt-1">
@@ -119,14 +119,15 @@
                         Generator Polynomial <span class="text-xs text-slate-400">(Divisor)</span>
                     </label>
                     <div class="relative">
-                        <input type="text" id="generatorBits" value="1011" placeholder="e.g. 1011"
+                        <input type="text" id="generatorBits" value="" placeholder="Enter Generator Polynomial"
                             class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 font-mono text-sm text-amber-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all uppercase tracking-wider">
                     </div>
                     <!-- Standard Generator Presets -->
                     <div class="space-y-1.5 pt-1">
                         <label class="text-xs text-slate-400">Standard Polynomials:</label>
                         <select id="presetSelect" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500">
-                            <option value="1011" selected>Custom / Example (1011) - x³ + x + 1</option>
+                            <option value="" disabled selected>Select a standard polynomial...</option>
+                            <option value="1011">Custom / Example (1011) - x³ + x + 1</option>
                             <option value="10011">CRC-4-ITU (10011) - x⁴ + x + 1</option>
                             <option value="100101">CRC-5-USB (100101) - x⁵ + x² + 1</option>
                             <option value="100000111">CRC-8 (100000111) - x⁸ + x² + x + 1</option>
@@ -336,8 +337,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-1">
         <p>CRC Modulo-2 Interactive Engine & Virtual Simulator</p>
+        <p class="text-slate-400 font-medium">Made by <span class="text-blue-400 font-semibold">Anant Patil</span></p>
     </footer>
 
     <script>
@@ -796,7 +798,9 @@
 
         // Initial execution on load
         window.addEventListener('DOMContentLoaded', () => {
-            runCRC();
+            if (dataBitsInput.value && generatorBitsInput.value) {
+                runCRC();
+            }
         });
     </script>
 </body>
