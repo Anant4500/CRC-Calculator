@@ -50,6 +50,18 @@
         .bit-box:hover {
             transform: translateY(-2px);
         }
+        /* Fixed width font column cell for aligned long division */
+        .ld-cell {
+            width: 1.75rem;
+            height: 2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fira Code', monospace;
+            font-size: 1.05rem;
+            position: relative;
+            user-select: none;
+        }
     </style>
 </head>
 <body class="h-full font-sans antialiased bg-slate-950 text-slate-100 flex flex-col min-h-screen">
@@ -107,9 +119,9 @@
                     </div>
                     <div class="flex flex-wrap gap-1.5 pt-1">
                         <span class="text-xs text-slate-400 mr-1">Presets:</span>
+                        <button class="data-preset text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-0.5 rounded transition-colors" data-val="1101011011">1101011011</button>
                         <button class="data-preset text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-0.5 rounded transition-colors" data-val="1101001110">1101001110</button>
                         <button class="data-preset text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-0.5 rounded transition-colors" data-val="100100">100100</button>
-                        <button class="data-preset text-[11px] font-mono bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-0.5 rounded transition-colors" data-val="1101011011">1101011011</button>
                     </div>
                 </div>
 
@@ -127,11 +139,10 @@
                         <label class="text-xs text-slate-400">Standard Polynomials:</label>
                         <select id="presetSelect" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500">
                             <option value="" disabled selected>Select a standard polynomial...</option>
-                            <option value="1011">Custom / Example (1011) - x³ + x + 1</option>
-                            <option value="10011">CRC-4-ITU (10011) - x⁴ + x + 1</option>
+                            <option value="10011">CRC-4-ITU (10011) - x⁴ + x + 1 (Textbook Example)</option>
+                            <option value="1011">CRC-3 (1011) - x³ + x + 1</option>
                             <option value="100101">CRC-5-USB (100101) - x⁵ + x² + 1</option>
                             <option value="100000111">CRC-8 (100000111) - x⁸ + x² + x + 1</option>
-                            <option value="10001000000100001">CRC-16-CCITT (10001000000100001)</option>
                         </select>
                     </div>
                 </div>
@@ -156,7 +167,7 @@
                             </svg>
                             CRC Calculation Output
                         </h2>
-                        <span class="text-xs font-mono text-slate-400" id="polyNotation">Poly: x³ + x + 1</span>
+                        <span class="text-xs font-mono text-slate-400" id="polyNotation">Poly: x⁴ + x + 1</span>
                     </div>
 
                     <!-- Grid Stats -->
@@ -167,11 +178,11 @@
                         </div>
                         <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-xl">
                             <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block mb-1">Generator Degree (k)</span>
-                            <div class="text-xl font-bold font-mono text-amber-400" id="statDegree">k = 3 (3 zeros appended)</div>
+                            <div class="text-xl font-bold font-mono text-amber-400" id="statDegree">k = 4 (4 zeros appended)</div>
                         </div>
                         <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-xl">
                             <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block mb-1">CRC Remainder</span>
-                            <div class="text-xl font-bold font-mono text-emerald-400" id="statCRC">000</div>
+                            <div class="text-xl font-bold font-mono text-emerald-400" id="statCRC">0000</div>
                         </div>
                     </div>
 
@@ -181,7 +192,7 @@
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
                             <div class="flex items-center justify-between mb-1.5">
                                 <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">1. Zero-Appended Bit Stream (Data + 0<sup>k</sup>)</span>
-                                <span class="text-[11px] text-slate-400 font-mono" id="appendedLen">13 bits</span>
+                                <span class="text-[11px] text-slate-400 font-mono" id="appendedLen">14 bits</span>
                             </div>
                             <div id="appendedDataView" class="font-mono text-base tracking-widest break-all overflow-x-auto py-1">
                                 <!-- Rendered dynamically -->
@@ -219,9 +230,9 @@
                         <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 01-2-2h-2a2 2 0 01-2 2"></path>
                         </svg>
-                        Step-by-Step Modulo-2 Division
+                        Step-by-Step Modulo-2 Division (Long Division View)
                     </h2>
-                    <p class="text-xs text-slate-400">Watch bitwise XOR operations perform modulo-2 binary division step by step</p>
+                    <p class="text-xs text-slate-400">Authentic textbook long-division layout showing XOR steps, brought-down bits, and drop lines</p>
                 </div>
 
                 <!-- Animation Controls -->
@@ -245,15 +256,17 @@
             </div>
 
             <!-- Division Display Console -->
-            <div class="bg-slate-950 rounded-xl p-5 border border-slate-800 overflow-x-auto">
-                <div id="stepDescription" class="mb-4 text-xs font-mono text-blue-300 bg-blue-950/30 border border-blue-900/50 p-3 rounded-lg flex items-center justify-between">
+            <div class="bg-slate-950 rounded-xl p-6 border border-slate-800 overflow-x-auto">
+                <div id="stepDescription" class="mb-5 text-xs font-mono text-blue-300 bg-blue-950/30 border border-blue-900/50 p-3.5 rounded-lg flex items-center justify-between">
                     <span>Press Play or Next to start division steps...</span>
                     <span id="speedLabel" class="text-[11px] text-slate-400">1.0s / step</span>
                 </div>
 
-                <!-- Division Grid Trace -->
-                <div id="divisionTrace" class="font-mono text-sm leading-relaxed tracking-widest text-slate-300 space-y-1 min-w-[500px]">
-                    <!-- Generated via JS -->
+                <!-- Division Canvas / Custom Long-Division Container -->
+                <div class="flex justify-center my-2 overflow-x-auto py-4">
+                    <div id="longDivisionContainer" class="inline-block text-left bg-slate-900/50 p-6 rounded-2xl border border-slate-800/80 shadow-2xl">
+                        <!-- Generated via JS -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -377,7 +390,7 @@
         const resetStepsBtn = document.getElementById('resetStepsBtn');
         const stepCounter = document.getElementById('stepCounter');
         const stepDescription = document.getElementById('stepDescription');
-        const divisionTrace = document.getElementById('divisionTrace');
+        const longDivisionContainer = document.getElementById('longDivisionContainer');
 
         const interactiveCodeword = document.getElementById('interactiveCodeword');
         const receiverResult = document.getElementById('receiverResult');
@@ -385,60 +398,70 @@
         const copyCodewordBtn = document.getElementById('copyCodewordBtn');
 
         /**
-         * Core divide function (replicates provided Java algorithm logic exactly)
+         * Core divide function generating step-by-step metadata for long division
          */
         function computeCRC(data, generator) {
             const zeros = "0".repeat(generator.length - 1);
             const appended = data + zeros;
             const bits = appended.split('');
             const n = generator.length;
+            const totalSteps = data.length; // Number of division steps equals length of data stream
 
             const stepHistory = [];
+            let quotientSoFar = "";
 
-            // Record initial state
-            stepHistory.push({
-                bits: [...bits],
-                i: -1,
-                action: 'INITIAL',
-                desc: `Appended ${generator.length - 1} zeros to data. Total length: ${bits.length} bits.`
-            });
+            // Work with mutable bit array
+            let curBits = [...bits];
 
-            for (let i = 0; i <= bits.length - n; i++) {
-                if (bits[i] === '1') {
-                    // Record state before XOR
-                    stepHistory.push({
-                        bits: [...bits],
-                        i: i,
-                        action: 'XOR',
-                        desc: `Bit at position ${i} is '1'. Perform Modulo-2 XOR with Generator '${generator}'.`
-                    });
+            for (let stepIdx = 0; stepIdx < totalSteps; stepIdx++) {
+                const i = stepIdx; // Starting column position for current step window
+                const leadingBit = curBits[i];
+                quotientSoFar += leadingBit;
 
-                    for (let j = 0; j < n; j++) {
-                        bits[i + j] = (bits[i + j] === generator.charAt(j)) ? '0' : '1';
-                    }
-                } else {
-                    stepHistory.push({
-                        bits: [...bits],
-                        i: i,
-                        action: 'SKIP',
-                        desc: `Bit at position ${i} is '0'. Skip XOR and shift to next bit.`
-                    });
+                // Window of length n starting at column i
+                const currentWindow = curBits.slice(i, i + n).join('');
+                const xorOperand = (leadingBit === '1') ? generator : "0".repeat(n);
+
+                // Perform XOR bit-by-bit
+                const xorResultBits = [];
+                for (let j = 0; j < n; j++) {
+                    xorResultBits[j] = (curBits[i + j] === xorOperand.charAt(j)) ? '0' : '1';
+                    curBits[i + j] = xorResultBits[j];
                 }
+                const xorResultStr = xorResultBits.join('');
+
+                // Remainder after dropping leading bit (n-1 bits)
+                const intermediateRemainder = curBits.slice(i + 1, i + n).join('');
+
+                // Next brought down bit (if available in dividend)
+                const broughtDownIndex = i + n;
+                const broughtDownBit = (broughtDownIndex < curBits.length) ? bits[broughtDownIndex] : null;
+
+                stepHistory.push({
+                    stepNumber: stepIdx + 1,
+                    colIndex: i,
+                    quotientBit: leadingBit,
+                    quotientSoFar: quotientSoFar,
+                    currentWindow: currentWindow,
+                    xorOperand: xorOperand,
+                    isXorOne: leadingBit === '1',
+                    xorResultStr: xorResultStr,
+                    intermediateRemainder: intermediateRemainder,
+                    broughtDownIndex: broughtDownIndex,
+                    broughtDownBit: broughtDownBit,
+                    desc: leadingBit === '1'
+                        ? `Step ${stepIdx + 1}: Leading bit is '1'. XOR window with Generator '${generator}'. Quotient bit = '1'.`
+                        : `Step ${stepIdx + 1}: Leading bit is '0'. XOR window with '${"0".repeat(n)}'. Quotient bit = '0'.`
+                });
             }
 
-            const remainder = bits.slice(bits.length - n + 1).join('');
-
-            stepHistory.push({
-                bits: [...bits],
-                i: bits.length - n + 1,
-                action: 'FINAL',
-                desc: `Division complete! Remainder CRC = '${remainder}'.`
-            });
+            // Final remainder string (last n-1 bits)
+            const finalRemainder = curBits.slice(curBits.length - n + 1).join('');
 
             return {
                 appendedData: appended,
-                remainder: remainder,
-                transmitted: data + remainder,
+                remainder: finalRemainder,
+                transmitted: data + finalRemainder,
                 stepHistory: stepHistory
             };
         }
@@ -539,53 +562,152 @@
             renderStepVisualizer();
         }
 
+        /**
+         * STREAMING_CHUNK:Rendering textbook long division format...
+         * Render textbook Modulo-2 division in exact image format
+         */
         function renderStepVisualizer() {
             if (!steps || steps.length === 0) return;
 
             stepCounter.textContent = `Step ${currentStepIndex + 1} / ${steps.length}`;
-            const step = steps[currentStepIndex];
+            const activeStep = steps[currentStepIndex];
 
-            stepDescription.innerHTML = `<span>${step.desc}</span> <span class="text-slate-400">Action: <strong class="text-white">${step.action}</strong></span>`;
+            stepDescription.innerHTML = `
+                <span>${activeStep.desc}</span>
+                <span class="text-slate-400">Quotient Bit: <strong class="text-blue-400 font-mono text-sm">${activeStep.quotientBit}</strong></span>
+            `;
 
-            // Build trace visual
-            let traceHTML = '';
-            const n = currentGenerator.length;
+            const appendedStr = currentData + "0".repeat(currentGenerator.length - 1);
+            const numCols = appendedStr.length;
+            const genLen = currentGenerator.length;
 
-            // Header - Original Appended Data
-            traceHTML += `<div class="text-slate-500 text-xs mb-2">Dividing Appended Bit Stream by Generator (${currentGenerator}):</div>`;
+            // Map of brought-down bits for vertical drop line rendering up to currentStepIndex
+            const broughtDownSteps = {};
+            for (let s = 0; s <= currentStepIndex; s++) {
+                if (steps[s].broughtDownIndex < numCols) {
+                    broughtDownSteps[steps[s].broughtDownIndex] = s;
+                }
+            }
 
-            // Active bit array rendering
-            let bitStr = '';
-            for (let idx = 0; idx < step.bits.length; idx++) {
-                const char = step.bits[idx];
-                const isCurrentWindow = (step.i >= 0 && idx >= step.i && idx < step.i + n);
-                
-                if (isCurrentWindow) {
-                    if (step.action === 'XOR') {
-                        bitStr += `<span class="bg-blue-600 text-white font-bold px-1.5 py-0.5 rounded shadow-sm">${char}</span>`;
-                    } else {
-                        bitStr += `<span class="bg-slate-800 text-amber-300 font-bold px-1.5 py-0.5 rounded border border-amber-500/30">${char}</span>`;
-                    }
+            let html = `<div class="font-mono text-sm select-none leading-none space-y-1">`;
+
+            // 1. QUOTIENT ROW (Row above division line)
+            html += `<div class="flex items-center">`;
+            // Spacer for divisor + parenthesis
+            html += `<div class="ld-cell text-transparent">${currentGenerator}</div>`;
+            html += `<div class="ld-cell text-transparent">)</div>`;
+
+            // Render quotient bits up to current step
+            for (let col = 0; col < numCols; col++) {
+                // Quotient bit sits above the end column of each step window (col - genLen + 1)
+                const stepForThisCol = col - genLen + 1;
+                if (stepForThisCol >= 0 && stepForThisCol <= currentStepIndex) {
+                    const qBit = steps[stepForThisCol].quotientBit;
+                    html += `<div class="ld-cell font-bold text-blue-400 text-lg">${qBit}</div>`;
                 } else {
-                    bitStr += `<span class="text-slate-400 px-1.5 py-0.5">${char}</span>`;
+                    html += `<div class="ld-cell text-transparent">&nbsp;</div>`;
                 }
             }
-            traceHTML += `<div class="text-base py-2 font-mono flex items-center gap-1 overflow-x-auto">${bitStr}</div>`;
+            html += `</div>`; // End Quotient Row
 
-            // Generator alignment line if active XOR
-            if (step.i >= 0 && step.action === 'XOR') {
-                let genStr = '';
-                for (let idx = 0; idx < step.bits.length; idx++) {
-                    if (idx >= step.i && idx < step.i + n) {
-                        genStr += `<span class="text-amber-400 font-bold px-1.5 py-0.5">${currentGenerator[idx - step.i]}</span>`;
+            // 2. DIVISOR & DIVIDEND HEADER ROW
+            html += `<div class="flex items-center">`;
+            // Divisor
+            html += `<div class="ld-cell font-bold text-slate-100 pr-1 text-base tracking-wider">${currentGenerator}</div>`;
+            // Division symbol/bracket ')'
+            html += `<div class="ld-cell font-bold text-slate-300 text-xl pl-0.5 border-r-2 border-slate-300 rounded-tr-sm pr-1">)</div>`;
+
+            // Dividend bits (Appended Data Stream)
+            for (let col = 0; col < numCols; col++) {
+                const isZeroAppended = col >= currentData.length;
+                const isBroughtDownInCurrent = (steps[currentStepIndex].broughtDownIndex === col);
+                const bitChar = appendedStr[col];
+
+                let colorClass = isZeroAppended ? "text-amber-400 font-semibold" : "text-slate-100 font-bold";
+                if (isBroughtDownInCurrent) {
+                    colorClass = "text-red-400 font-bold scale-110";
+                }
+
+                html += `<div class="ld-cell ${colorClass} border-t-2 border-slate-300">${bitChar}`;
+
+                // Vertical drop line connector down from dividend bit if brought down
+                if (broughtDownSteps[col] !== undefined) {
+                    html += `<div class="absolute bottom-0 left-1/2 w-0.5 h-full bg-red-500/30 -z-10 transform -translate-x-1/2 pointer-events-none"></div>`;
+                }
+
+                html += `</div>`;
+            }
+            html += `</div>`; // End Header Row
+
+            // 3. STEP-BY-STEP DIVISION ROWS (0 to currentStepIndex)
+            for (let s = 0; s <= currentStepIndex; s++) {
+                const step = steps[s];
+                const startCol = step.colIndex;
+
+                // --- ROW A: XOR Operand Row (Underlined) ---
+                html += `<div class="flex items-center mt-0.5">`;
+                // Left spacer to align with divisor bracket
+                html += `<div class="ld-cell text-transparent">${currentGenerator}</div>`;
+                html += `<div class="ld-cell text-transparent">)</div>`;
+
+                for (let col = 0; col < numCols; col++) {
+                    const inWindowIndex = col - startCol;
+                    const hasVerticalDropLine = broughtDownSteps[col] !== undefined && broughtDownSteps[col] >= s;
+
+                    if (inWindowIndex >= 0 && inWindowIndex < genLen) {
+                        const operandBit = step.xorOperand[inWindowIndex];
+                        const bitColor = step.isXorOne ? "text-blue-400 font-bold" : "text-slate-400";
+                        html += `<div class="ld-cell ${bitColor} border-b-2 border-blue-500/80">${operandBit}`;
                     } else {
-                        genStr += `<span class="opacity-0 px-1.5 py-0.5">0</span>`;
+                        html += `<div class="ld-cell text-transparent">&nbsp;`;
                     }
+
+                    if (hasVerticalDropLine) {
+                        html += `<div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-red-500/40 -z-10 transform -translate-x-1/2 pointer-events-none"></div>`;
+                    }
+                    html += `</div>`;
                 }
-                traceHTML += `<div class="text-xs text-amber-400/80 font-mono flex items-center gap-1 border-t border-dashed border-slate-800 pt-1">XOR: ${genStr}</div>`;
+                html += `</div>`; // End XOR Operand Row
+
+                // --- ROW B: Remainder & Brought-Down Bit Row ---
+                html += `<div class="flex items-center">`;
+                html += `<div class="ld-cell text-transparent">${currentGenerator}</div>`;
+                html += `<div class="ld-cell text-transparent">)</div>`;
+
+                for (let col = 0; col < numCols; col++) {
+                    const isBroughtDownBit = (step.broughtDownIndex === col);
+                    const isRemainderBit = (col > startCol && col < startCol + genLen);
+                    const hasVerticalDropLine = broughtDownSteps[col] !== undefined && broughtDownSteps[col] > s;
+
+                    if (isBroughtDownBit && step.broughtDownBit !== null) {
+                        // Brought-down bit highlighted in red
+                        html += `<div class="ld-cell text-red-400 font-bold bg-red-500/10 rounded-sm">${step.broughtDownBit}`;
+                    } else if (isRemainderBit) {
+                        const remIdx = col - (startCol + 1);
+                        const remBit = step.intermediateRemainder[remIdx];
+                        html += `<div class="ld-cell text-blue-300 font-bold">${remBit}`;
+                    } else {
+                        html += `<div class="ld-cell text-transparent">&nbsp;`;
+                    }
+
+                    if (hasVerticalDropLine) {
+                        html += `<div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-red-500/40 -z-10 transform -translate-x-1/2 pointer-events-none"></div>`;
+                    }
+                    html += `</div>`;
+                }
+                html += `</div>`; // End Remainder Row
             }
 
-            divisionTrace.innerHTML = traceHTML;
+            // 4. FINAL REMAINDER DISPLAY IF ALL STEPS COMPLETED
+            if (currentStepIndex === steps.length - 1) {
+                html += `<div class="mt-2 pt-2 border-t border-emerald-500/30 text-xs font-mono text-emerald-400 flex items-center gap-2">`;
+                html += `<span class="bg-emerald-500/20 px-2 py-1 rounded border border-emerald-500/30">Final CRC Remainder = <strong class="text-white text-sm">${calculatedCRC}</strong></span>`;
+                html += `</div>`;
+            }
+
+            html += `</div>`; // End long division container
+
+            longDivisionContainer.innerHTML = html;
 
             // Update button states
             prevStepBtn.disabled = currentStepIndex <= 0;
@@ -701,7 +823,6 @@
                     <span class="text-xs font-semibold px-2.5 py-1 bg-red-500/20 rounded-full border border-red-500/30">FAIL</span>
                 `;
             } else {
-                // Rare undetected error or identical bit sequence
                 receiverResult.className = "p-4 rounded-xl border border-amber-500/30 bg-amber-950/20 text-amber-300 flex items-center justify-between";
                 receiverResult.innerHTML = `
                     <div class="flex items-center space-x-3">
@@ -721,12 +842,18 @@
         document.querySelectorAll('.data-preset').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 dataBitsInput.value = e.target.getAttribute('data-val');
+                if (!generatorBitsInput.value) {
+                    generatorBitsInput.value = "10011"; // Default to textbook CRC-4 if empty
+                }
                 runCRC();
             });
         });
 
         presetSelect.addEventListener('change', (e) => {
             generatorBitsInput.value = e.target.value;
+            if (!dataBitsInput.value) {
+                dataBitsInput.value = "1101011011"; // Standard textbook data default
+            }
             runCRC();
         });
 
@@ -739,9 +866,11 @@
             for (let i = 0; i < len; i++) {
                 bits += Math.random() > 0.5 ? '1' : '0';
             }
-            // Ensure first bit is 1
             bits = '1' + bits.substring(1);
             dataBitsInput.value = bits;
+            if (!generatorBitsInput.value) {
+                generatorBitsInput.value = "10011";
+            }
             runCRC();
         });
 
@@ -790,17 +919,22 @@
             `;
             setTimeout(() => {
                 copyCodewordBtn.innerHTML = `
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     Copy
                 `;
             }, 2000);
         });
 
-        // Initial execution on load
+        // Default initial setup on page load - keep inputs empty with clear placeholders
         window.addEventListener('DOMContentLoaded', () => {
-            if (dataBitsInput.value && generatorBitsInput.value) {
-                runCRC();
-            }
+            dataBitsInput.value = "";
+            generatorBitsInput.value = "";
+            longDivisionContainer.innerHTML = `
+                <div class="text-center py-8 text-slate-400 font-mono text-sm space-y-2">
+                    <p class="text-slate-300 font-medium">Enter inputs above and click "Compute CRC & Animate"</p>
+                    <p class="text-xs text-slate-500">Or select a preset polynomial / sample data bit stream to get started</p>
+                </div>
+            `;
         });
     </script>
 </body>
